@@ -1,0 +1,2140 @@
+/* _content/Loop.UI/Components/ActionList.razor.rz.scp.css */
+ul[b-7b7ycqwz1y] {
+    list-style: none;
+    margin: 0 0 1rem;
+    padding: 0;
+}
+
+h3[b-7b7ycqwz1y] {
+    margin: 0.75rem 0 0.25rem;
+    font-size: 1rem;
+    color: var(--text-heading);
+}
+
+.action[b-7b7ycqwz1y] {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(8rem, 13rem) minmax(4rem, 1fr) auto auto auto;
+    gap: 0.75rem;
+    align-items: center;
+    padding: 0.35rem 0.5rem;
+    border-bottom: 1px solid var(--border);
+}
+
+/* Odhad času akcie: hneď po prejdení myšou (systémový title má dlhé oneskorenie). Absolútne pozicovaný, v gride nezaberá stĺpec. */
+.tooltip[b-7b7ycqwz1y] {
+    display: none;
+    position: absolute;
+    left: 0.5rem;
+    top: 100%;
+    z-index: 20;
+    padding: 0.4rem 0.6rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    box-shadow: 0 4px 12px rgb(0 0 0 / 0.4);
+    pointer-events: none;
+}
+
+.action:hover .tooltip[b-7b7ycqwz1y] {
+    display: block;
+}
+
+.action.active[b-7b7ycqwz1y] {
+    background: var(--surface-active);
+}
+
+.action.exhausted[b-7b7ycqwz1y] {
+    opacity: 0.5;
+}
+
+.header[b-7b7ycqwz1y] {
+    display: flex;
+    gap: 1rem;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.skills[b-7b7ycqwz1y] {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+}
+
+.skill[b-7b7ycqwz1y] {
+    font-size: 0.75rem;
+    padding: 0 0.35rem;
+    border-radius: 0.6rem;
+    background: var(--tag-bg);
+    color: var(--tag-text);
+}
+
+.reason[b-7b7ycqwz1y] {
+    font-size: 0.8rem;
+    color: var(--warning);
+}
+
+.text[b-7b7ycqwz1y] {
+    display: flex;
+    flex-direction: column;
+}
+
+.tooltip .description[b-7b7ycqwz1y],
+.tooltip .time-estimate[b-7b7ycqwz1y] {
+    display: block;
+}
+
+.tooltip .description[b-7b7ycqwz1y] {
+    max-width: 22rem;
+    white-space: normal;
+    margin-bottom: 0.2rem;
+}
+
+.tooltip .time-estimate[b-7b7ycqwz1y] {
+    color: var(--text-muted);
+}
+
+.remaining[b-7b7ycqwz1y],
+.once[b-7b7ycqwz1y] {
+    color: var(--text-muted);
+}
+
+.remaining[b-7b7ycqwz1y] {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+
+/* Tlačidlá po riadkoch: teraz, do poradia. */
+.buttons[b-7b7ycqwz1y] {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    align-items: flex-end;
+}
+
+/* Ikonové tlačidlá spustenia: plná ikona = hneď, obrys = do poradia; popis je v title. */
+button.icon[b-7b7ycqwz1y] {
+    padding: 0.25rem 0.45rem;
+    line-height: 0;
+}
+
+.button-row[b-7b7ycqwz1y] {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    align-items: center;
+    justify-content: flex-end;
+    white-space: nowrap;
+}
+
+/* Na úzkej obrazovke idú tlačidlá na samostatný riadok pod názov. */
+@media (max-width: 560px) {
+    .action[b-7b7ycqwz1y] {
+        grid-template-columns: 1fr auto auto;
+    }
+
+    .buttons[b-7b7ycqwz1y] {
+        grid-column: 1 / -1;
+        align-items: flex-start;
+    }
+
+    .button-row[b-7b7ycqwz1y] {
+        justify-content: flex-start;
+    }
+
+    .automation-cell[b-7b7ycqwz1y] {
+        grid-column: 1 / -1;
+    }
+}
+
+
+.cost[b-7b7ycqwz1y] {
+    font-size: 0.8rem;
+    color: var(--text-heading);
+}
+
+.action-level[b-7b7ycqwz1y] {
+    font-size: 0.75rem;
+    padding: 0 0.35rem;
+    border-radius: 0.6rem;
+    border: 1px solid var(--tag-bg);
+    color: var(--good);
+}
+
+.name-row[b-7b7ycqwz1y] {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    align-items: baseline;
+}
+
+.action-type[b-7b7ycqwz1y] {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text-muted);
+}
+
+/* Progress bar v strede riadku; percentá sú v ňom. Bez počtu spustení zaberie aj jeho stĺpec. */
+.progress[b-7b7ycqwz1y] {
+    position: relative;
+    height: 1.3rem;
+    border-radius: 4px;
+    background: var(--border);
+    overflow: hidden;
+}
+
+.progress.wide[b-7b7ycqwz1y] {
+    grid-column: span 2;
+}
+
+.progress .fill[b-7b7ycqwz1y] {
+    position: absolute;
+    inset: 0 auto 0 0;
+    background: var(--button-border);
+}
+
+.action.active .progress .fill[b-7b7ycqwz1y] {
+    background: var(--good);
+}
+
+.progress .percent[b-7b7ycqwz1y] {
+    position: relative;
+    display: block;
+    text-align: center;
+    line-height: 1.3rem;
+    font-size: 0.8rem;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+
+/* Automatizácia vpravo od tlačidiel: výber úrovne medzi tlačidlami spustenia a prepínačmi. */
+.automation-cell[b-7b7ycqwz1y]  .automation {
+    flex-wrap: nowrap;
+    gap: 0.4rem;
+}
+
+
+/* Štyri prepínače v mriežke 2 × 2, aby riadok nebol príliš široký. */
+.automation-cell[b-7b7ycqwz1y]  .toggles {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+}
+
+/* Dôvod, prečo sa akcia nedá spustiť, v strede riadku namiesto progress baru. */
+.reason.blocked[b-7b7ycqwz1y] {
+    text-align: center;
+}
+
+.reason.wide[b-7b7ycqwz1y] {
+    grid-column: span 2;
+}
+
+.reason[data-code="WouldBeFatal"][b-7b7ycqwz1y] {
+    color: var(--bad);
+    font-weight: 600;
+}
+
+/* Myš je nad značkou tejto akcie na mape (alebo nad akciou samou). */
+.action.highlighted[b-7b7ycqwz1y] {
+    outline: 1px solid var(--text-muted);
+    outline-offset: -1px;
+}
+
+/* Odznak [16/30] v bunke automatizácie vpravo od tlačidiel: stlmený; po odomknutí ho nahradia ovládacie prvky. */
+.automation-lock[b-7b7ycqwz1y] {
+    display: inline-block;
+    /* Pevná šírka na [999/999], aby sa tlačidlá v rôznych riadkoch nelíšili o šírku odznaku. */
+    min-width: 9ch;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-variant-numeric: tabular-nums;
+    cursor: help;
+}
+/* _content/Loop.UI/Components/ActionQueue.razor.rz.scp.css */
+.action-queue[b-uuatmkcnaq] {
+    margin-bottom: 1.5rem;
+}
+
+ol[b-uuatmkcnaq] {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.current[b-uuatmkcnaq],
+.entry[b-uuatmkcnaq] {
+    display: grid;
+    grid-template-columns: 2.5rem 1fr auto 3rem 4.5rem auto;
+    gap: 0.75rem;
+    align-items: center;
+    padding: 0.35rem 0.5rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.current[b-uuatmkcnaq] {
+    background: var(--surface-active);
+}
+
+.label[b-uuatmkcnaq],
+.position[b-uuatmkcnaq],
+.mode[b-uuatmkcnaq],
+.empty[b-uuatmkcnaq] {
+    color: var(--text-muted);
+}
+
+.label[b-uuatmkcnaq],
+.position[b-uuatmkcnaq],
+.mode[b-uuatmkcnaq] {
+    font-size: 0.85rem;
+}
+
+.percent[b-uuatmkcnaq],
+.finish[b-uuatmkcnaq],
+.position[b-uuatmkcnaq] {
+    font-variant-numeric: tabular-nums;
+}
+
+.percent[b-uuatmkcnaq],
+.finish[b-uuatmkcnaq] {
+    text-align: right;
+}
+
+.finish[b-uuatmkcnaq] {
+    color: var(--text-heading);
+}
+
+.buttons[b-uuatmkcnaq] {
+    display: flex;
+    gap: 0.25rem;
+    justify-content: flex-end;
+    white-space: nowrap;
+}
+
+/* Na úzkej obrazovke idú tlačidlá na samostatný riadok pod názov. */
+@media (max-width: 560px) {
+    .current[b-uuatmkcnaq],
+    .entry[b-uuatmkcnaq] {
+        grid-template-columns: 2rem 1fr auto auto auto;
+        gap: 0.5rem;
+    }
+
+    .buttons[b-uuatmkcnaq] {
+        grid-column: 1 / -1;
+    }
+}
+
+.header[b-uuatmkcnaq] {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+}
+
+.clear-queue[b-uuatmkcnaq] {
+    display: inline-flex;
+    gap: 0.35rem;
+    align-items: center;
+    line-height: 1;
+}
+
+.clear-queue svg[b-uuatmkcnaq] {
+    fill: currentColor;
+}
+
+.title[b-uuatmkcnaq] {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+}
+/* _content/Loop.UI/Components/AutomationControls.razor.rz.scp.css */
+.automation[b-r3wytxvthy] {
+    font-size: 0.8rem;
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    align-items: center;
+}
+
+.automation label[b-r3wytxvthy] {
+    display: inline-flex;
+    gap: 0.3rem;
+    align-items: center;
+}
+
+/* Úroveň v štvorci a pod ňou limit vykonaní. */
+.level-cell[b-r3wytxvthy] {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.2rem;
+}
+
+.automation-level[b-r3wytxvthy] {
+    box-sizing: border-box;
+    width: 1.8rem;
+    height: 1.8rem;
+    padding: 0;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    user-select: none;
+    color: var(--text-muted);
+}
+
+.automation-level.on[b-r3wytxvthy] {
+    color: var(--good);
+    border-color: var(--good);
+}
+
+.run-limit[b-r3wytxvthy] {
+    width: 1.8rem;
+    box-sizing: border-box;
+    -moz-appearance: textfield;
+    appearance: textfield;
+    padding: 0 0.15rem;
+    font-size: 0.75rem;
+    text-align: center;
+}
+
+
+/* Dva riadky po dvoch: dozbierať a prerušiť, pod nimi ochrany pred prerušením. */
+.toggles[b-r3wytxvthy] {
+    display: inline-grid;
+    grid-template-columns: repeat(2, auto);
+    gap: 0.2rem 0.3rem;
+}
+
+/* Prepínač ako tlačidlo: nestlačené = obrys, stlačené = zvýraznené a „vtlačené“. */
+.toggle[b-r3wytxvthy] {
+    padding: 0.1rem 0.3rem;
+    line-height: 1.2;
+    font-size: 0.9rem;
+    opacity: 0.55;
+}
+
+/* Nedostupný prepínač je bledší ako nestlačený. */
+.toggle:disabled[b-r3wytxvthy] {
+    opacity: 0.2;
+    cursor: default;
+}
+
+.toggle.pressed[b-r3wytxvthy] {
+    opacity: 1;
+    color: var(--good);
+    border-color: var(--good);
+    box-shadow: inset 0 2px 3px rgb(0 0 0 / 0.45);
+}
+
+/* Ikona s malým 🚫 v rohu: tlačidlo ostane široké ako jedna ikona a nezalomí sa. */
+.combo[b-r3wytxvthy] {
+    position: relative;
+    display: inline-block;
+}
+
+.combo .no[b-r3wytxvthy],
+.combo .corner[b-r3wytxvthy] {
+    position: absolute;
+    right: -0.35em;
+    bottom: -0.25em;
+    font-size: 0.6em;
+}
+
+/* Bez šípok čísla, aby sa pole zmestilo do šírky štvorca. */
+.run-limit[b-r3wytxvthy]::-webkit-outer-spin-button,
+.run-limit[b-r3wytxvthy]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+/* _content/Loop.UI/Components/AutomationPanel.razor.rz.scp.css */
+.backdrop[b-qkyh9q6bmy] {
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    background: rgb(0 0 0 / 0.5);
+}
+
+.automation-window[b-qkyh9q6bmy] {
+    position: fixed;
+    z-index: 41;
+    top: 5vh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(64rem, calc(100vw - 2rem));
+    max-height: 90vh;
+    overflow: auto;
+    padding: 1rem 1.25rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    box-shadow: 0 8px 24px rgb(0 0 0 / 0.5);
+}
+
+.header[b-qkyh9q6bmy] {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+h2[b-qkyh9q6bmy] {
+    margin: 0;
+}
+
+.hint[b-qkyh9q6bmy],
+.empty[b-qkyh9q6bmy],
+.locked[b-qkyh9q6bmy] {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
+h3[b-qkyh9q6bmy] {
+    margin: 1rem 0 0.4rem;
+    font-size: 1rem;
+}
+
+/* Názov oblasti je tlačidlo, ktoré oblasť zbalí alebo rozbalí. */
+.area-toggle[b-qkyh9q6bmy] {
+    all: unset;
+    cursor: pointer;
+}
+
+.type-columns[b-qkyh9q6bmy] {
+    display: grid;
+    gap: 1rem;
+    overflow-x: auto;
+}
+
+h4[b-qkyh9q6bmy] {
+    margin: 0 0 0.3rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text-muted);
+}
+
+ul[b-qkyh9q6bmy] {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+li[b-qkyh9q6bmy] {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.25rem 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.locked[b-qkyh9q6bmy] {
+    font-variant-numeric: tabular-nums;
+}
+
+/* Fajka: akcia sa v tomto živote dokončila aspoň raz. */
+.done[b-qkyh9q6bmy] {
+    width: 1rem;
+    text-align: center;
+    color: var(--text-muted);
+}
+
+.done.yes[b-qkyh9q6bmy] {
+    color: var(--good);
+}
+
+.done.failed[b-qkyh9q6bmy] {
+    color: var(--bad);
+}
+
+.name[b-qkyh9q6bmy] {
+    flex: 1;
+}
+
+.presets[b-qkyh9q6bmy] {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    align-items: center;
+    margin: 0.5rem 0;
+    font-size: 0.85rem;
+}
+
+.presets .label[b-qkyh9q6bmy] {
+    color: var(--text-muted);
+}
+
+.preset-name[b-qkyh9q6bmy] {
+    width: 10rem;
+}
+
+.tabs[b-qkyh9q6bmy] {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    margin-top: 0.75rem;
+}
+
+.tab.selected[b-qkyh9q6bmy] {
+    font-weight: bold;
+    border-color: var(--good);
+}
+/* _content/Loop.UI/Components/ChangelogPanel.razor.rz.scp.css */
+.backdrop[b-ijerkgnvkl] {
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    background: rgb(0 0 0 / 0.5);
+}
+
+.changelog-window[b-ijerkgnvkl] {
+    position: fixed;
+    z-index: 41;
+    top: 5vh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(40rem, calc(100vw - 2rem));
+    max-height: 90vh;
+    overflow: auto;
+    padding: 1rem 1.25rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    box-shadow: 0 8px 24px rgb(0 0 0 / 0.5);
+}
+
+.header[b-ijerkgnvkl] {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.tabs[b-ijerkgnvkl] {
+    display: flex;
+    gap: 0.25rem;
+}
+
+.tab.selected[b-ijerkgnvkl] {
+    font-weight: bold;
+    border-color: var(--good);
+}
+
+.empty[b-ijerkgnvkl] {
+    color: var(--text-muted);
+}
+/* _content/Loop.UI/Components/ContentIcon.razor.rz.scp.css */
+.content-icon[b-tw7flua0j7] {
+    display: inline-block;
+    width: 1.4em;
+    margin-right: 0.3em;
+    text-align: center;
+    flex-shrink: 0;
+}
+/* _content/Loop.UI/Components/ContentPackPanel.razor.rz.scp.css */
+.content-pack[b-totswc6yqd] {
+    margin-top: 2rem;
+}
+
+.current[b-totswc6yqd],
+.note[b-totswc6yqd] {
+    color: var(--text-muted);
+}
+
+.buttons[b-totswc6yqd] {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+/* Nahrávanie vyzerá ako ostatné tlačidlá; samotný input je neviditeľný cez celé tlačidlo. */
+.upload[b-totswc6yqd] {
+    position: relative;
+    display: inline-block;
+    padding: 0.3rem 0.7rem;
+    border: 1px solid var(--button-border);
+    border-radius: 4px;
+    background: var(--button-bg, var(--surface));
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.upload[b-totswc6yqd]  input {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.pending[b-totswc6yqd] {
+    margin-top: 1rem;
+    padding: 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+}
+
+.problems ul[b-totswc6yqd],
+.problems pre[b-totswc6yqd] {
+    margin: 0.25rem 0 0.75rem;
+    font-size: 0.85rem;
+    white-space: pre-wrap;
+}
+
+.errors[b-totswc6yqd] {
+    color: var(--bad);
+}
+
+.warnings[b-totswc6yqd] {
+    color: var(--warning);
+}
+/* _content/Loop.UI/Components/ContentProblems.razor.rz.scp.css */
+.content-problems[b-dgl2u3zikh] {
+    margin: 0.75rem 1rem;
+    padding: 0.5rem 1rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+}
+
+.errors[b-dgl2u3zikh] {
+    color: var(--bad);
+    border-color: var(--bad);
+}
+
+.warnings[b-dgl2u3zikh] {
+    color: var(--warning);
+}
+
+.header[b-dgl2u3zikh] {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+h2[b-dgl2u3zikh] {
+    margin: 0.25rem 0;
+    font-size: 1.1rem;
+}
+
+ul[b-dgl2u3zikh] {
+    margin: 0.5rem 0;
+    padding-left: 1.25rem;
+}
+
+li[b-dgl2u3zikh] {
+    overflow-wrap: anywhere;
+}
+/* _content/Loop.UI/Components/DemoPicker.razor.rz.scp.css */
+.demo-picker[b-c9mpzzk65i] {
+    padding: 2rem 1rem;
+    text-align: center;
+}
+
+.buttons[b-c9mpzzk65i] {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.demo[b-c9mpzzk65i] {
+    min-width: 10rem;
+    padding: 1rem 2rem;
+    font-size: 1.3rem;
+    text-transform: capitalize;
+    cursor: pointer;
+}
+/* _content/Loop.UI/Components/EffectList.razor.rz.scp.css */
+ul[b-rf7l0v69ci] {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.effect[b-rf7l0v69ci] {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 4rem;
+    gap: 0.75rem;
+    align-items: center;
+    padding: 0.35rem 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.text[b-rf7l0v69ci] {
+    display: flex;
+    flex-direction: column;
+}
+
+.modifiers[b-rf7l0v69ci] {
+    font-size: 0.8rem;
+    color: var(--good);
+}
+
+/* Popis efektu: ukáže sa hneď po prejdení myšou alebo pri focuse (systémový title má dlhé oneskorenie). */
+.tooltip[b-rf7l0v69ci] {
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 100%;
+    z-index: 20;
+    max-width: 18rem;
+    padding: 0.4rem 0.6rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    font-size: 0.85rem;
+    box-shadow: 0 4px 12px rgb(0 0 0 / 0.4);
+}
+
+.effect:hover .tooltip[b-rf7l0v69ci],
+.effect:focus .tooltip[b-rf7l0v69ci] {
+    display: block;
+}
+
+.effect:focus[b-rf7l0v69ci] {
+    outline: 1px solid var(--button-border);
+}
+
+.remaining[b-rf7l0v69ci] {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+
+.repeats[b-rf7l0v69ci] {
+    margin-left: 0.3rem;
+    font-size: 0.8rem;
+}
+
+/* Pruh priebehu dočasného efektu (nastavenie hráča) pod celým riadkom. */
+.effect-bar[b-rf7l0v69ci] {
+    grid-column: 1 / -1;
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.effect-bar .fill[b-rf7l0v69ci] {
+    display: block;
+    height: 100%;
+    background: var(--good);
+}
+
+.remaining[b-rf7l0v69ci],
+.empty[b-rf7l0v69ci] {
+    color: var(--text-muted);
+}
+
+.header[b-rf7l0v69ci] {
+    display: flex;
+    gap: 1rem;
+    align-items: baseline;
+    justify-content: space-between;
+}
+
+.header-tools[b-rf7l0v69ci] {
+    display: flex;
+    gap: 0.75rem;
+    align-items: baseline;
+}
+
+.game-speed[b-rf7l0v69ci] {
+    font-size: 0.85rem;
+    color: var(--good);
+    font-variant-numeric: tabular-nums;
+}
+
+.effect.inactive .name[b-rf7l0v69ci] {
+    color: var(--text-muted);
+}
+
+.bound[b-rf7l0v69ci] {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.buttons[b-rf7l0v69ci] {
+    display: flex;
+    gap: 0.35rem;
+    margin-top: 0.25rem;
+}
+
+.debug-speed[b-rf7l0v69ci] {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    align-items: center;
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+/* Nadpisy sekcií „Trvalé“ a „Dočasné“. */
+h3.section[b-rf7l0v69ci] {
+    margin: 0.5rem 0 0.15rem;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+/* _content/Loop.UI/Components/GameLogView.razor.rz.scp.css */
+.header[b-9518fjgmmg] {
+    display: flex;
+    gap: 1rem;
+    align-items: baseline;
+    justify-content: space-between;
+}
+
+ol[b-9518fjgmmg] {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-height: 24rem;
+    overflow-y: auto;
+}
+
+.entry[b-9518fjgmmg] {
+    display: grid;
+    /* Rozdiel oproti minulému životu je medzi časom a popisom, s pevnou šírkou, aby sa popisy zarovnali. */
+    grid-template-columns: 6rem 4rem 1fr;
+    gap: 0.75rem;
+    padding: 0.25rem 0;
+    border-bottom: 1px solid var(--border-soft);
+}
+
+.entry.action[b-9518fjgmmg] {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
+.entry.story .text[b-9518fjgmmg] {
+    font-style: italic;
+}
+
+.entry.level-up .text[b-9518fjgmmg] {
+    color: var(--tag-text);
+}
+
+.filter[b-9518fjgmmg] {
+    position: relative;
+    font-size: 0.85rem;
+}
+
+.filter summary[b-9518fjgmmg] {
+    cursor: pointer;
+    padding: 0.15rem 0.55rem;
+    border: 1px solid var(--button-border);
+    border-radius: 4px;
+    background: var(--button-bg);
+    list-style: none;
+}
+
+.filter .options[b-9518fjgmmg] {
+    position: absolute;
+    right: 0;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    margin-top: 0.25rem;
+    padding: 0.5rem 0.75rem;
+    min-width: 9rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+}
+
+.filter label[b-9518fjgmmg] {
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.time[b-9518fjgmmg],
+.diff[b-9518fjgmmg] {
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+    color: var(--text-muted);
+}
+
+.diff.faster[b-9518fjgmmg] {
+    color: var(--good);
+}
+
+.diff.slower[b-9518fjgmmg] {
+    color: var(--bad);
+}
+
+.empty[b-9518fjgmmg] {
+    color: var(--text-muted);
+}
+
+/* Záznamy z predchádzajúcich životov sú stlmené; čiara oddeľuje jeden život od druhého. */
+.entry.past[b-9518fjgmmg] {
+    opacity: 0.55;
+}
+
+.entry.life-break[b-9518fjgmmg] {
+    margin-top: 0.4rem;
+    padding-top: 0.4rem;
+    border-top: 1px solid var(--text-muted);
+}
+/* _content/Loop.UI/Components/HelpPanel.razor.rz.scp.css */
+.backdrop[b-7c7eytzeeg] {
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    background: rgb(0 0 0 / 0.5);
+}
+
+.help-window[b-7c7eytzeeg] {
+    position: fixed;
+    z-index: 41;
+    top: 5vh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(40rem, calc(100vw - 2rem));
+    max-height: 90vh;
+    overflow: auto;
+    padding: 1rem 1.25rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    box-shadow: 0 8px 24px rgb(0 0 0 / 0.5);
+}
+
+.header[b-7c7eytzeeg] {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.tabs[b-7c7eytzeeg] {
+    display: flex;
+    gap: 0.25rem;
+}
+
+.tab.selected[b-7c7eytzeeg] {
+    font-weight: bold;
+    border-color: var(--good);
+}
+
+.empty[b-7c7eytzeeg] {
+    color: var(--text-muted);
+}
+
+.automation-settings[b-7c7eytzeeg] {
+    list-style: none;
+    padding: 0;
+    margin: 0.25rem 0;
+    font-size: 0.9rem;
+}
+
+.automation-settings li[b-7c7eytzeeg] {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0.3rem 0;
+}
+
+.sample[b-7c7eytzeeg] {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 1.6rem;
+    height: 1.6rem;
+    flex: none;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+}
+
+.sample.level[b-7c7eytzeeg] {
+    border-color: var(--good);
+    font-weight: bold;
+}
+/* _content/Loop.UI/Components/InventoryList.razor.rz.scp.css */
+h3[b-ak7o10u00r] {
+    margin: 0.5rem 0 0.15rem;
+    font-size: 0.9rem;
+}
+
+ul[b-ak7o10u00r] {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.item[b-ak7o10u00r] {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr auto 4rem;
+    gap: 0.75rem;
+    align-items: center;
+    padding: 0.35rem 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.text[b-ak7o10u00r] {
+    display: flex;
+    flex-direction: column;
+}
+
+.effects[b-ak7o10u00r] {
+    font-size: 0.8rem;
+    color: var(--good);
+}
+
+.durability[b-ak7o10u00r] {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.cooldown[b-ak7o10u00r] {
+    font-size: 0.8rem;
+    color: var(--warning);
+    font-variant-numeric: tabular-nums;
+}
+
+/* Popis predmetu: ukáže sa hneď po prejdení myšou alebo pri focuse (systémový title má dlhé oneskorenie). */
+.tooltip[b-ak7o10u00r] {
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 100%;
+    z-index: 20;
+    max-width: 18rem;
+    padding: 0.4rem 0.6rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    font-size: 0.85rem;
+    box-shadow: 0 4px 12px rgb(0 0 0 / 0.4);
+}
+
+/* Rozpis cooldownu pod popisom, každý údaj na vlastnom riadku. */
+.cooldown-line[b-ak7o10u00r] {
+    display: block;
+    opacity: 0.8;
+}
+
+.item:hover .tooltip[b-ak7o10u00r],
+.item:focus .tooltip[b-ak7o10u00r] {
+    display: block;
+}
+
+.item:focus[b-ak7o10u00r] {
+    outline: 1px solid var(--button-border);
+}
+
+.count[b-ak7o10u00r],
+.durability[b-ak7o10u00r] {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+}
+
+.durability[b-ak7o10u00r],
+.empty[b-ak7o10u00r] {
+    color: var(--text-muted);
+}
+
+.count[b-ak7o10u00r] {
+    white-space: nowrap;
+}
+
+.count.full[b-ak7o10u00r] {
+    color: var(--warning);
+    font-weight: 600;
+}
+/* _content/Loop.UI/Components/LanguagePicker.razor.rz.scp.css */
+.setting[b-j51ukqkx09] {
+    display: block;
+    margin: 0.6rem 0;
+    color: var(--text-heading);
+}
+
+.language[b-j51ukqkx09] {
+    margin-left: 0.5rem;
+}
+
+.hint[b-j51ukqkx09] {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+/* _content/Loop.UI/Components/LifeBar.razor.rz.scp.css */
+.life-bar[b-mackimp8m9] {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.life[b-mackimp8m9] {
+    font-weight: 600;
+}
+
+.time[b-mackimp8m9] {
+    font-variant-numeric: tabular-nums;
+    color: var(--text-heading);
+}
+
+.game-speed[b-mackimp8m9] {
+    font-variant-numeric: tabular-nums;
+    font-weight: 600;
+    color: var(--good);
+}
+
+.dead[b-mackimp8m9] {
+    font-weight: 700;
+    color: var(--bad);
+}
+
+.paused[b-mackimp8m9] {
+    font-weight: 700;
+    color: var(--warning);
+}
+
+
+/* _content/Loop.UI/Components/LifeStatsPanel.razor.rz.scp.css */
+.backdrop[b-gc2laxh8fm] {
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    background: rgb(0 0 0 / 0.5);
+}
+
+.life-stats-window[b-gc2laxh8fm] {
+    position: fixed;
+    z-index: 41;
+    top: 5vh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(32rem, calc(100vw - 2rem));
+    max-height: 90vh;
+    overflow: auto;
+    padding: 1rem 1.25rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    box-shadow: 0 8px 24px rgb(0 0 0 / 0.5);
+}
+
+.header[b-gc2laxh8fm] {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+h2[b-gc2laxh8fm] {
+    margin: 0;
+}
+
+.hint[b-gc2laxh8fm] {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
+table[b-gc2laxh8fm] {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+td[b-gc2laxh8fm] {
+    padding: 0.2rem 0.4rem;
+}
+
+.bar[b-gc2laxh8fm] {
+    width: 40%;
+}
+
+.bar span[b-gc2laxh8fm] {
+    display: block;
+    height: 0.6rem;
+    border-radius: 3px;
+    background: var(--good);
+}
+
+.percent[b-gc2laxh8fm],
+.previous[b-gc2laxh8fm],
+.time[b-gc2laxh8fm] {
+    text-align: right;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+}
+
+h3[b-gc2laxh8fm] {
+    margin: 1rem 0 0.3rem;
+    font-size: 0.95rem;
+}
+
+th[b-gc2laxh8fm] {
+    padding: 0.2rem 0.4rem;
+    font-size: 0.8rem;
+    font-weight: normal;
+    color: var(--text-muted);
+    text-align: right;
+}
+
+th:first-child[b-gc2laxh8fm] {
+    text-align: left;
+}
+
+.gained[b-gc2laxh8fm],
+.global-life[b-gc2laxh8fm],
+.global-rebirth[b-gc2laxh8fm] {
+    text-align: right;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+}
+
+.gained[b-gc2laxh8fm],
+.global-rebirth[b-gc2laxh8fm] {
+    color: var(--good);
+}
+
+.rebirth[b-gc2laxh8fm] {
+    margin-bottom: 0.75rem;
+    border-color: var(--good);
+    color: var(--good);
+}
+
+.chapter-time[b-gc2laxh8fm],
+.effect-time[b-gc2laxh8fm] {
+    margin-top: 1rem;
+}
+
+.chapter-time summary[b-gc2laxh8fm],
+.effect-time summary[b-gc2laxh8fm] {
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: bold;
+}
+
+.chapters .bar span[b-gc2laxh8fm],
+.effects .bar span[b-gc2laxh8fm] {
+    background: var(--accent, var(--good));
+}
+
+.action-times[b-gc2laxh8fm] {
+    margin-top: 1rem;
+}
+
+.action-times summary[b-gc2laxh8fm] {
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: bold;
+}
+
+.tabs[b-gc2laxh8fm] {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    margin: 0.5rem 0;
+}
+
+.tab.selected[b-gc2laxh8fm] {
+    font-weight: bold;
+    border-color: var(--good);
+}
+
+.times th[b-gc2laxh8fm] {
+    text-align: left;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.times .faster[b-gc2laxh8fm] {
+    color: var(--good);
+}
+
+.times .slower[b-gc2laxh8fm] {
+    color: var(--bad, #e57373);
+}
+
+.previous[b-gc2laxh8fm] {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
+.download-replay[b-gc2laxh8fm],
+.watch-replay[b-gc2laxh8fm],
+.load-replay[b-gc2laxh8fm] {
+    margin: 0 0 0.75rem 0.5rem;
+}
+
+/* Výber súboru vyzerá ako tlačidlo; samotné pole je skryté. */
+.load-replay[b-gc2laxh8fm] {
+    display: inline-block;
+    padding: 0.15rem 0.55rem;
+    font-size: 0.85rem;
+    border: 1px solid var(--button-border);
+    border-radius: 4px;
+    background: var(--button-bg);
+    cursor: pointer;
+}
+
+.load-replay:hover[b-gc2laxh8fm] {
+    background: var(--button-bg-hover);
+}
+
+.load-replay[b-gc2laxh8fm]  input {
+    display: none;
+}
+/* _content/Loop.UI/Components/MapPanel.razor.rz.scp.css */
+.map-panel[b-0s3h1bpxyq] {
+    --map-tile: 2.25rem;
+    --map-border: var(--text-muted);
+    /* Veľkosť políčka sa počíta zo šírky panelu (cqw), nie okna. */
+    container-type: inline-size;
+    margin-bottom: 1rem;
+}
+
+/* Bez overflow: menu a tooltip môžu prekryť zoznam akcií pod mapou (na úzkej obrazovke sa zmenší políčko). */
+.map[b-0s3h1bpxyq] {
+    position: relative;
+    z-index: 5;
+    display: grid;
+    width: max-content;
+    margin: 0 auto;
+}
+
+.tile[b-0s3h1bpxyq] {
+    position: relative;
+    background: var(--surface);
+    border: 2px solid transparent;
+    box-sizing: border-box;
+    overflow: visible;
+}
+
+.tile.decoration[b-0s3h1bpxyq] {
+    border-color: transparent !important;
+}
+
+.tile.current[b-0s3h1bpxyq] {
+    --map-border: var(--text);
+}
+
+/* Zašedené: známe, ale teraz sa s tým nedá nič robiť (iná oblasť, chýbajú zdroje). */
+.dimmed[b-0s3h1bpxyq] {
+    filter: grayscale(0.8);
+    opacity: 0.45;
+}
+
+.label[b-0s3h1bpxyq] {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    font-size: 0.75rem;
+    white-space: nowrap;
+    color: var(--text);
+    text-shadow: 0 0 3px #000, 0 0 3px #000;
+    pointer-events: none;
+}
+
+.marker[b-0s3h1bpxyq] {
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0.325rem;
+    padding: 0;
+    font-size: 1.45rem;
+    line-height: 1;
+    background: rgb(0 0 0 / 0.25);
+    border: 2px solid transparent;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.marker.decoration[b-0s3h1bpxyq] {
+    background: none;
+    cursor: default;
+}
+
+/* Akcia presunie postavu do inej oblasti (moveToArea): prerušovaný krúžok ju odlíši od akcií na mieste. */
+.marker.travel[b-0s3h1bpxyq] {
+    outline: 1.5px dashed rgb(255 255 255 / 0.55);
+    outline-offset: -1px;
+}
+
+/* Akcia je v pláne: slabý žltooranžový krúžok okolo (postup sa kreslí cez neho). */
+.marker.queued[b-0s3h1bpxyq] {
+    box-shadow: 0 0 0 3px rgb(251 191 36 / 0.55);
+}
+
+.marker.highlighted[b-0s3h1bpxyq],
+.marker:hover[b-0s3h1bpxyq] {
+    border-color: var(--text);
+}
+
+/* Akcia značky práve beží: svieti. */
+.marker.active[b-0s3h1bpxyq] {
+    border-color: var(--good);
+    animation: map-pulse-b-0s3h1bpxyq 1.2s ease-in-out infinite;
+}
+
+
+@keyframes map-pulse-b-0s3h1bpxyq {
+    50% {
+        opacity: 0.55;
+    }
+}
+
+.header[b-0s3h1bpxyq] {
+    display: flex;
+    gap: 1rem;
+    align-items: baseline;
+}
+
+/* Ikona na hrane medzi políčkami (súradnica x.5, napr. prechod do susednej oblasti): menšia; posun o pol políčka je v štýle. */
+.marker.between[b-0s3h1bpxyq] {
+    font-size: 1.15rem;
+    margin: 0.575rem;
+}
+
+/* Menu spúšťania po pravom kliku: pod značkou, nad ostatnými políčkami. */
+.menu-backdrop[b-0s3h1bpxyq] {
+    position: fixed;
+    inset: 0;
+    z-index: 9;
+}
+
+.run-menu[b-0s3h1bpxyq] {
+    z-index: 10;
+    align-self: start;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    width: max-content;
+    margin-top: var(--map-tile);
+    padding: 0.4rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    box-shadow: 0 4px 12px rgb(0 0 0 / 0.4);
+}
+
+.menu-title[b-0s3h1bpxyq] {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.button-row[b-0s3h1bpxyq] {
+    display: flex;
+    gap: 0.25rem;
+}
+
+.run-menu button.icon[b-0s3h1bpxyq] {
+    padding: 0.25rem 0.45rem;
+    line-height: 0;
+}
+
+/* Ikona je kotva pre krúžok postupu. */
+.marker[b-0s3h1bpxyq] {
+    position: relative;
+}
+
+/* Tooltip značky pod myšou: jeden prvok v mriežke pod políčkom, nad všetkými značkami, nezdedí zašedenie. */
+.tip[b-0s3h1bpxyq] {
+    z-index: 20;
+    align-self: start;
+    justify-self: center;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    width: max-content;
+    max-width: 18rem;
+    margin-top: calc(var(--map-tile) + 0.2rem);
+    padding: 0.5rem 0.65rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 0.85rem;
+    line-height: 1.35;
+    color: var(--text);
+    box-shadow: 0 6px 16px rgb(0 0 0 / 0.5);
+    pointer-events: none;
+}
+
+.tip-name[b-0s3h1bpxyq] {
+    font-weight: 600;
+}
+
+.tip-description[b-0s3h1bpxyq] {
+    color: var(--text-muted);
+}
+
+.tip-time[b-0s3h1bpxyq] {
+    font-size: 0.8rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--text-muted);
+}
+
+/* Prečo sa akcia nedá spustiť: zvýraznené, aby bolo hneď vidno, čo chýba. */
+.tip-reason[b-0s3h1bpxyq] {
+    padding: 0.25rem 0.4rem;
+    border-left: 3px solid var(--warning);
+    background: rgb(245 176 65 / 0.12);
+    color: var(--warning);
+}
+
+/* Postup akcie na značke (settings.mapProgress): --progress 0 – 1 nastavuje komponent, bez neho sa nič nekreslí. */
+.marker.progress-ring[b-0s3h1bpxyq]::before,
+.marker.progress-pie[b-0s3h1bpxyq]::before {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.marker.progress-ring[b-0s3h1bpxyq]::before {
+    inset: -4px;
+    background: conic-gradient(var(--good) calc(var(--progress, 0) * 360deg), transparent 0);
+    -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 2.5px));
+    mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 2.5px));
+}
+
+.marker.progress-pie[b-0s3h1bpxyq]::before {
+    inset: 0;
+    z-index: -1;
+    background: conic-gradient(rgb(74 222 128 / 0.45) calc(var(--progress, 0) * 360deg), transparent 0);
+}
+
+.menu-info[b-0s3h1bpxyq] {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+/* Oblasť je iba obal políčok (display: contents), aby :hover nad jej políčkom ukázal jej názov bez udalostí do C#. */
+.region[b-0s3h1bpxyq] {
+    display: contents;
+}
+
+/* Názov oblasti nad jej horným okrajom; netreba ho hneď, ukáže sa s oneskorením, aby pri prechádzaní myšou neblikal. */
+.region-tip[b-0s3h1bpxyq] {
+    display: none;
+    align-self: end;
+    margin-top: 0;
+    margin-bottom: calc(var(--map-tile) + 0.2rem);
+}
+
+.region-tip.left[b-0s3h1bpxyq] {
+    justify-self: start;
+}
+
+.region:hover > .region-tip[b-0s3h1bpxyq] {
+    display: flex;
+    opacity: 0;
+    animation: region-tip-show-b-0s3h1bpxyq 0.15s ease-out 0.6s forwards;
+}
+
+@keyframes region-tip-show-b-0s3h1bpxyq {
+    to {
+        opacity: 1;
+    }
+}
+
+/* Zostávajúce dokončenia akcie v pravom dolnom rohu ikony. */
+/* Zapnuté dozbieranie (ľavý dolný roh) a blesk (pravý horný), oproti počtu dokončení. */
+.restock[b-0s3h1bpxyq],
+.interrupt[b-0s3h1bpxyq] {
+    position: absolute;
+    font-size: 0.6rem;
+    line-height: 0.75rem;
+    padding: 0 0.08rem;
+    background: rgb(0 0 0 / 0.7);
+    border-radius: 0.4rem;
+    pointer-events: none;
+}
+
+.restock[b-0s3h1bpxyq] {
+    left: -0.3rem;
+    bottom: -0.3rem;
+}
+
+/* Doplnenie pred odchodom: malé 🍗 cez roh 🫳, odznak ostane široký ako jeden znak. */
+.restock-food[b-0s3h1bpxyq] {
+    position: absolute;
+    right: 0;
+    bottom: 0.05rem;
+    font-size: 0.4rem;
+    line-height: 0.4rem;
+}
+
+.interrupt[b-0s3h1bpxyq] {
+    right: -0.3rem;
+    top: -0.3rem;
+}
+
+.runs[b-0s3h1bpxyq] {
+    position: absolute;
+    right: -0.3rem;
+    bottom: -0.3rem;
+    min-width: 0.75rem;
+    padding: 0 0.12rem;
+    font-size: 0.55rem;
+    font-weight: 700;
+    line-height: 0.75rem;
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+    color: var(--text);
+    background: rgb(0 0 0 / 0.7);
+    border-radius: 0.4rem;
+    pointer-events: none;
+}
+
+.tip-runs[b-0s3h1bpxyq] {
+    font-size: 0.8rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--text-muted);
+}
+/* _content/Loop.UI/Components/MarkdownView.razor.rz.scp.css */
+.markdown h2[b-o4sjsp69yw] {
+    margin: 0.75rem 0 0.25rem;
+    font-size: 1.2rem;
+}
+
+.markdown h3[b-o4sjsp69yw] {
+    margin: 0.75rem 0 0.25rem;
+    font-size: 1.05rem;
+}
+
+.markdown h4[b-o4sjsp69yw] {
+    margin: 0.6rem 0 0.2rem;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+}
+
+.markdown p[b-o4sjsp69yw],
+.markdown ul[b-o4sjsp69yw] {
+    margin: 0.25rem 0;
+    font-size: 0.9rem;
+}
+
+.markdown code[b-o4sjsp69yw] {
+    padding: 0 0.2rem;
+    border-radius: 3px;
+    background: var(--border);
+}
+
+.markdown .icon-sample[b-o4sjsp69yw] {
+    display: inline-flex;
+    vertical-align: middle;
+    padding: 0.1rem 0.25rem;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+}
+/* _content/Loop.UI/Components/ReplayBar.razor.rz.scp.css */
+.replay-bar[b-3v7huy7wf0] {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+    padding: 0.5rem 0.75rem;
+    margin: 0.5rem 0;
+    border: 1px solid var(--warning);
+    border-radius: 0.5rem;
+    background: var(--surface);
+}
+
+.position[b-3v7huy7wf0] {
+    flex: 1 1 12rem;
+    min-width: 8rem;
+}
+
+.time[b-3v7huy7wf0] {
+    font-variant-numeric: tabular-nums;
+}
+
+.error[b-3v7huy7wf0],
+.warnings[b-3v7huy7wf0] {
+    flex-basis: 100%;
+    margin: 0;
+}
+
+.error[b-3v7huy7wf0] {
+    color: var(--bad);
+}
+/* _content/Loop.UI/Components/RunModeIcon.razor.rz.scp.css */
+.run-mode-icon[b-ja9a9eufju] {
+    display: block;
+}
+
+.filled path[b-ja9a9eufju],
+.filled rect[b-ja9a9eufju] {
+    fill: currentColor;
+    stroke: none;
+}
+
+/* Obrys: rovnaký tvar, iba čiara, aby bolo vidieť, že sa akcia iba naplánuje. */
+.outline path[b-ja9a9eufju],
+.outline rect[b-ja9a9eufju] {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.3;
+    stroke-linejoin: round;
+}
+/* _content/Loop.UI/Components/SaveControls.razor.rz.scp.css */
+.save-controls[b-d8f5tnxcup] {
+    display: flex;
+    gap: 0.4rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.saved[b-d8f5tnxcup] {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.error[b-d8f5tnxcup],
+.confirm[b-d8f5tnxcup] {
+    color: var(--bad);
+}
+
+.seed[b-d8f5tnxcup] {
+    width: 9rem;
+}
+
+.rebirth.urgent[b-d8f5tnxcup] {
+    border-color: var(--bad);
+    color: var(--bad);
+}
+/* _content/Loop.UI/Components/SettingsPanel.razor.rz.scp.css */
+.backdrop[b-r9cpq06lai] {
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    background: rgb(0 0 0 / 0.5);
+}
+
+.settings-window[b-r9cpq06lai] {
+    position: fixed;
+    z-index: 41;
+    top: 5vh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(32rem, calc(100vw - 2rem));
+    max-height: 90vh;
+    overflow: auto;
+    padding: 1rem 1.25rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    box-shadow: 0 8px 24px rgb(0 0 0 / 0.5);
+}
+
+.header[b-r9cpq06lai] {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+}
+
+h2[b-r9cpq06lai] {
+    margin: 0;
+}
+
+.setting[b-r9cpq06lai] {
+    display: block;
+    margin: 0.6rem 0;
+    color: var(--text-heading);
+}
+
+.hint[b-r9cpq06lai] {
+    display: block;
+    margin-left: 1.6rem;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+/* _content/Loop.UI/Components/SkillList.razor.rz.scp.css */
+ul[b-qp40ejould] {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.skill[b-qp40ejould] {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr auto auto 4rem;
+    gap: 0.75rem;
+    align-items: center;
+    padding: 0.35rem 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.skill.with-debug[b-qp40ejould] {
+    grid-template-columns: 1fr auto auto 4rem auto;
+}
+
+/* Popis skillu: ukáže sa hneď ako pri predmetoch (systémový title má dlhé oneskorenie). Absolútne pozicovaný, takže v gride nezaberá stĺpec. */
+.tooltip[b-qp40ejould] {
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 100%;
+    z-index: 20;
+    max-width: 18rem;
+    padding: 0.4rem 0.6rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    font-size: 0.85rem;
+    box-shadow: 0 4px 12px rgb(0 0 0 / 0.4);
+}
+
+.skill:hover .tooltip[b-qp40ejould],
+.skill:focus .tooltip[b-qp40ejould] {
+    display: block;
+}
+
+.skill:focus[b-qp40ejould] {
+    outline: 1px solid var(--button-border);
+}
+
+.bonus[b-qp40ejould] {
+    color: var(--good);
+    font-weight: 600;
+}
+
+.global-level[b-qp40ejould] {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.level[b-qp40ejould],
+.global-level[b-qp40ejould],
+.xp[b-qp40ejould] {
+    white-space: nowrap;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+}
+
+.xp[b-qp40ejould],
+.empty[b-qp40ejould] {
+    color: var(--text-muted);
+}
+
+.buttons[b-qp40ejould] {
+    display: flex;
+    gap: 0.25rem;
+}
+
+
+.icon[b-qp40ejould] {
+    margin-right: 0.3rem;
+}
+/* _content/Loop.UI/Components/StoryPanel.razor.rz.scp.css */
+.backdrop[b-9j9v6o7e0a] {
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    background: rgb(0 0 0 / 0.5);
+}
+
+.story-window[b-9j9v6o7e0a] {
+    position: fixed;
+    z-index: 41;
+    top: 5vh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(32rem, calc(100vw - 2rem));
+    max-height: 90vh;
+    overflow: auto;
+    padding: 1rem 1.25rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    box-shadow: 0 8px 24px rgb(0 0 0 / 0.5);
+}
+
+.header[b-9j9v6o7e0a] {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+h2[b-9j9v6o7e0a] {
+    margin: 0;
+}
+
+ul[b-9j9v6o7e0a] {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+li[b-9j9v6o7e0a] {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 0.5rem;
+    padding: 0.4rem 0;
+    border-bottom: 1px solid var(--border);
+}
+
+li.inactive[b-9j9v6o7e0a] {
+    opacity: 0.6;
+}
+
+.name[b-9j9v6o7e0a] {
+    font-weight: 600;
+}
+
+.modifiers[b-9j9v6o7e0a],
+.count[b-9j9v6o7e0a] {
+    color: var(--text-muted);
+}
+
+.description[b-9j9v6o7e0a],
+.empty[b-9j9v6o7e0a] {
+    flex-basis: 100%;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+/* _content/Loop.UI/Components/VitalsPanel.razor.rz.scp.css */
+/* Spoločná mriežka pre všetky pruhy: stĺpec názvov sa prispôsobí najdlhšiemu, pruhy zostanú zarovnané. */
+.vitals[b-03ysaq28gr] {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 0.4rem 0.75rem;
+    align-items: center;
+}
+
+.vital[b-03ysaq28gr] {
+    display: contents;
+}
+
+.label[b-03ysaq28gr] {
+    white-space: nowrap;
+}
+
+/* Pruh nesie aj text: percentá, zmenu za sekundu a čas do 0 %. */
+.bar[b-03ysaq28gr] {
+    position: relative;
+    height: 1.25rem;
+    border-radius: 0.35rem;
+    background: var(--border);
+    overflow: hidden;
+}
+
+.fill[b-03ysaq28gr] {
+    height: 100%;
+    background: var(--good);
+    opacity: 0.55;
+}
+
+.vital[data-stat=hunger] .fill[b-03ysaq28gr] {
+    background: var(--warning);
+}
+
+.bar.low .fill[b-03ysaq28gr] {
+    background: var(--bad);
+}
+
+.bar-text[b-03ysaq28gr] {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 0.5rem;
+    align-items: center;
+    padding: 0 0.45rem;
+    font-size: 0.75rem;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    color: var(--text);
+    text-shadow: 0 0 3px rgb(0 0 0 / 0.8);
+}
+
+.value[b-03ysaq28gr] {
+    font-weight: 600;
+}
+
+.amounts[b-03ysaq28gr] {
+    display: flex;
+    gap: 0.35rem;
+}
+
+.empty-in[b-03ysaq28gr] {
+    text-align: right;
+}
+
+.amount[b-03ysaq28gr] {
+    font-weight: 400;
+    opacity: 0.85;
+}
+
+.setting[b-03ysaq28gr] {
+    grid-column: 1 / -1;
+    font-size: 0.8rem;
+    color: var(--text-heading);
+}
+/* _content/Loop.UI/Pages/Home.razor.rz.scp.css */
+.top[b-lrrf1ejdvk] {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+/* Súvisiace tlačidlá (automatizácia a štatistiky; nastavenia, zmeny a pomoc) držia pri sebe. */
+.tool-group[b-lrrf1ejdvk] {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.columns[b-lrrf1ejdvk] {
+    margin-bottom: 2rem;
+    display: grid;
+    grid-template-columns: minmax(14rem, 1fr) minmax(20rem, 2fr) minmax(16rem, 1.2fr);
+    gap: 2rem;
+    align-items: start;
+}
+
+.side[b-lrrf1ejdvk],
+.plan[b-lrrf1ejdvk] {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* Plán zostane na obrazovke aj pri dlhom zozname akcií. */
+.plan[b-lrrf1ejdvk] {
+    position: sticky;
+    top: 0.5rem;
+}
+
+@media (max-width: 900px) {
+    .columns[b-lrrf1ejdvk] {
+        grid-template-columns: 1fr;
+    }
+
+    .plan[b-lrrf1ejdvk] {
+        position: static;
+    }
+}
+
+.credits[b-lrrf1ejdvk] {
+    margin: 1.5rem 0 0.5rem;
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.credits a[b-lrrf1ejdvk] {
+    color: inherit;
+}

@@ -1,0 +1,25 @@
+Copyright (c) 2026 Tundy (https://github.com/tundy). All rights reserved.
+
+This game, its engine and its built-in content (code, texts and assets) may not be copied, modified,
+redistributed or used in other works without prior written permission of the author. You may play the
+published game in your web browser.
+
+Custom content
+--------------
+You may create your own content packs for this game, upload them into the game and share them with others,
+publicly or privately, but only free of charge: content packs for this game may not be sold or offered for a fee. For that you may use and modify the built-in content and documentation offered by the
+game as a template („Download built-in content“). Your own texts and ideas in such a pack remain yours.
+This permission does not cover the engine or redistributing the game itself.
+
+Third-party components
+----------------------
+The published game runs on the .NET runtime and ASP.NET Core Blazor WebAssembly (the files in _framework),
+which are (c) .NET Foundation and Contributors and licensed under the MIT License:
+https://github.com/dotnet/runtime/blob/main/LICENSE.TXT
+https://github.com/dotnet/aspnetcore/blob/main/LICENSE.txt
+Their third-party notices: https://github.com/dotnet/runtime/blob/main/THIRD-PARTY-NOTICES.TXT
+
+The desktop version runs on Godot Engine, (c) 2014-present Godot Engine contributors and (c) 2007-2014
+Juan Linietsky, Ariel Manzur, licensed under the MIT License: https://godotengine.org/license
+Godot Engine includes third-party components under their own licenses; the game lists all of them with
+their license texts in Help → Licenses.
