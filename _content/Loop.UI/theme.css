@@ -1,0 +1,85 @@
+/* Farby hry. Komponenty používajú iba tieto premenné, takže svetlá téma = iná sada hodnôt. */
+:root {
+    color-scheme: dark;
+
+    --bg: #14161b;
+    --surface: #1c1f26;
+    --surface-active: #1e2b40;
+    --text: #e4e6eb;
+    --text-muted: #9aa1ab;
+    --text-heading: #c3c8d0;
+    --border: #2b303a;
+    --border-soft: #22262e;
+
+    --button-bg: #2a2f39;
+    --button-bg-hover: #353b47;
+    --button-border: #3a404c;
+
+    --tag-bg: #2a3443;
+    --tag-text: #c5d3e6;
+
+    --debug: #f0a04b;
+    --warning: #f5b041;
+    --good: #4ade80;
+    --bad: #f87171;
+}
+
+html,
+body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: system-ui, "Segoe UI", Roboto, sans-serif;
+    line-height: 1.4;
+}
+
+body {
+    margin: 0;
+    padding: 1rem 1.5rem;
+}
+
+h1,
+h2,
+h3 {
+    color: var(--text-heading);
+}
+
+button,
+select {
+    background: var(--button-bg);
+    color: var(--text);
+    border: 1px solid var(--button-border);
+    border-radius: 4px;
+    padding: 0.15rem 0.55rem;
+    font: inherit;
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+
+button:hover:not(:disabled) {
+    background: var(--button-bg-hover);
+}
+
+button:disabled {
+    opacity: 0.4;
+    cursor: default;
+}
+
+input[type=checkbox] {
+    accent-color: #5b8def;
+}
+
+/* Testovacie ovládače sú zámerne iné, aby sa nezamenili s hrou. */
+button.debug {
+    background: transparent;
+    color: var(--debug);
+    border: 1px dashed var(--debug);
+}
+
+::-webkit-scrollbar {
+    width: 0.6rem;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 0.3rem;
+}
